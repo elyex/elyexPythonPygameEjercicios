@@ -1,3 +1,4 @@
+#hacer pequeno el rectangualo
 import pygame
 def main():
 	pygame.init() #inicio de modulos
@@ -26,12 +27,11 @@ def main():
 		(r1.left,r1.top)=pygame.mouse.get_pos()
 		r1.left-= r1.width/2
 		r1.top-= r1.height/2
-		#no se topan los dos
+		#para achicar figuras
 		if r1.colliderect(r2):
-			(r1.left,r1.top)=(xant,yant)
+			r2.inflate_ip(-1,-1)
 		pygame.draw.rect(pantalla,rojo,r2)
 		pygame.draw.rect(pantalla,azul,r1)
 		pygame.display.update() #Actualiza el display
 	pygame.quit()
-		
 main()
