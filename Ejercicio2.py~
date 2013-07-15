@@ -12,14 +12,31 @@ def main():
 	azul=(70,70,190)	
 	
 	r1=pygame.Rect(50,50,45,45)
-	r2=pygame.Rect(150,150,75,45)
+	r2=pygame.Rect(150,150,75,95)
 	
 	while salir!=True:#Loop Principal
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				salir=True
+			#if event.type == pygame.MOUSEBUTTONDOWN:
+			#	r1.move_ip(10,10)
+			#if event.type == pygame.MOUSEMOTION:
+			#	r1.move_ip(-10,-10)
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_LEFT:
+					r1.move_ip(-10,0)
+				if event.key == pygame.K_RIGTH:
+					r1.move_ip(10,0)
+				if event.key == pygame.K_UP:
+					r1.move_ip(0,-10)
+				if event.key == pygame.K_DOWN:
+					r1.move_ip(0,10)
+				
+			
 		reloj1.tick(20)	#20 fotogramas ps	
 		pantalla.fill(blanco)
+
+		
 		pygame.draw.rect(pantalla,rojo,r2)
 		pygame.draw.rect(pantalla,azul,r1)
 		pygame.display.update() #Actualiza el display

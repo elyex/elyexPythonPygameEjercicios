@@ -2,7 +2,7 @@ import pygame
 def main():
 	pygame.init() #inicio de modulos
 	pantalla=pygame.display.set_mode([400,400])
-	pygame.display.set_caption("Elyex Ejercicio2") #titulo	
+	pygame.display.set_caption("Elyex Ejercicio3") #titulo	
 	salir=False
 	#Reloj
 	reloj1=pygame.time.Clock()
@@ -18,25 +18,17 @@ def main():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				salir=True
-			#if event.type == pygame.MOUSEBUTTONDOWN:
-			#	r1.move_ip(10,10)
-			#if event.type == pygame.MOUSEMOTION:
-			#	r1.move_ip(-10,-10)
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_LEFT:
-					r1.move_ip(-10,0)
-				if event.key == pygame.K_RIGHT:
-					r1.move_ip(10,0)
-				if event.key == pygame.K_UP:
-					r1.move_ip(0,-10)
-				if event.key == pygame.K_DOWN:
-					r1.move_ip(0,10)
-				
-			
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				pygame.mouse.set_pos(500,300)
 		reloj1.tick(20)	#20 fotogramas ps	
 		pantalla.fill(blanco)
-
-		
+		(xant,yant)=(r1.left,r1.top)		
+		(r1.left,r1.top)=pygame.mouse.get_pos()
+		r1.left-= r1.width/2
+		r1.top-= r1.height/2
+		#no se topan los dos
+		if r1.colliderect(r2):
+			(r1.left,r1.top)=(xant,yant)
 		pygame.draw.rect(pantalla,rojo,r2)
 		pygame.draw.rect(pantalla,azul,r1)
 		pygame.display.update() #Actualiza el display
