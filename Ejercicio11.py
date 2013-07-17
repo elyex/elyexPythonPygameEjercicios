@@ -1,23 +1,24 @@
-# Rectangulos al azar con fuente y timer
+# Primer juego Cuadrados al azar con fuente, timer, sonido y contador de puntos
 import pygame
-#Rectangulos al azar, eliminarlos al hacer click con el mouse
 import random
 pygame.init()
+sonido1=pygame.mixer.Sound("EfectoDisparos.mp3")
 pantalla=pygame.display.set_mode((500,500))
-fuente1=pygame.font.SysFont("Arial",20,True,False)
-info=fuente1.render("Haga click sobre los rectangulos",0,(255,255,255))
-
+fuente1=pygame.font.SysFont("Arial",15,True,False)
+info=fuente1.render("Haga click sobre los rectangulos, tienes 10 segundos",0,(255,255,255))
 salir=False
 reloj1=pygame.time.Clock()
 listarec=[]
+segundosint=0
+termino=False
 r1=pygame.Rect(0,0,25,25)
+rotos=0
 for x in range(25):
-		w = random.randrange(10,30)
-		h = random.randrange(20,60)
+		w = random.randrange(20,30)
+		h = random.randrange(20,30)
 		x = random.randrange(450)
 		y = random.randrange(450)
 		listarec.append(pygame.Rect(x,y,w,h))
-		
 while salir!=True:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -26,9 +27,12 @@ while salir!=True:
 			#recorre los rectangulos
 			for recs in listarec:
 				#deja en 0,0 el rectangulo
-				if r1.colliderect(recs):
-					recs.width=0
-					recs.height=0
+				if termino==False:
+					if r1.colliderect(recs):
+						sonido1.play()
+						recs.width=0
+						recs.height=0
+						rotos+=1
 				 
 	reloj1.tick(20)
 	(r1.left,r1.top)=pygame.mouse.get_pos()
@@ -44,11 +48,15 @@ while salir!=True:
 	
 	
 	#contador de segundos
-	segundos=pygame.time.get_ticks()/1000
-	segundos=str(segundos)
-	contador=fuente1.render(segundos,0,(0,0,230))
-	pantalla.blit(contador,(450,5))
-	
+	if segundosint >= 10 :
+		termino=True
+	if termino == False:
+		segundosint=pygame.time.get_ticks()/1000
+		segundos=str(segundosint)
+		contador=fuente1.render(segundos,0,(0,0,230))
+	else:
+		contador=fuente1.render(" Usted rompio: "+str(rotos),0,(100,0,230))
+	pantalla.blit(contador,(5,40))
 	pygame.display.update()
 pygame.quit()
 	

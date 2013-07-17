@@ -1,12 +1,12 @@
-# Rectangulos al azar con fuente y timer
+# Rectangulos al azar con fuente, timer y sonido
 import pygame
 #Rectangulos al azar, eliminarlos al hacer click con el mouse
 import random
 pygame.init()
+sonido1=pygame.mixer.Sound("EfectoDisparos.mp3")
 pantalla=pygame.display.set_mode((500,500))
 fuente1=pygame.font.SysFont("Arial",20,True,False)
 info=fuente1.render("Haga click sobre los rectangulos",0,(255,255,255))
-
 salir=False
 reloj1=pygame.time.Clock()
 listarec=[]
@@ -17,7 +17,6 @@ for x in range(25):
 		x = random.randrange(450)
 		y = random.randrange(450)
 		listarec.append(pygame.Rect(x,y,w,h))
-		
 while salir!=True:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -27,8 +26,10 @@ while salir!=True:
 			for recs in listarec:
 				#deja en 0,0 el rectangulo
 				if r1.colliderect(recs):
+					sonido1.play()
 					recs.width=0
 					recs.height=0
+					
 				 
 	reloj1.tick(20)
 	(r1.left,r1.top)=pygame.mouse.get_pos()
