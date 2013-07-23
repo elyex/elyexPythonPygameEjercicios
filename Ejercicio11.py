@@ -43,7 +43,7 @@ while salir!=True:
 	pantalla.fill((0,0,0))
 	for recs in listarec:
 		pygame.draw.rect(pantalla,(0,200,0),recs)
-	pygame.draw.rect(pantalla,(200,20,20),r1)
+	pygame.draw.rect(pantalla,(0,0,200),r1)
 	pantalla.blit(info,(5,5))
 	
 	

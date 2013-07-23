@@ -4,7 +4,7 @@
 #  Twitter: @MauEyx
 #  Facebook: https://www.facebook.com/MauEyx
 #--------------------------------------------
-#  Programa: Uso de Claces en Pygame
+#  Programa: Uso de Claces en Pygame con fondos
 #--------------------------------------------
 import pygame
 class Player(pygame.sprite.Sprite):
@@ -23,7 +23,11 @@ def main():
 	pantalla=pygame.display.set_mode((480,300)) 
 	salir=False
 	reloj1=pygame.time.Clock()
-	imagen1=pygame.image.load("monster.png")
+	imagen1=pygame.image.load("monster.png").convert_alpha()
+	imagenfondo=pygame.image.load("monster.png").convert_alpha()
+	#player1=Player(imagen1)
+	
+	#variables auxiliares
 	player1=Player(imagen1)
 	vx, vy = 0,0
 	velocidad=10
@@ -61,11 +65,11 @@ def main():
 				if event.key == pygame.K_DOWN:
 					dwnS = False
 					if topS: vy=-velocidad
-					else: vy=0
-								
+					else: vy=0							
+		
 		reloj1.tick(20)
-		player1.mover(vx,vy)
-		pantalla.fill((200,200,200))
+		player1.mover(vx, vy)
+		pantalla.blit(imagenfondo,(0,0))
 		player1.update(pantalla)		
 		pygame.display.update()
 	pygame.quit()
